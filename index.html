@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ads-Analyser | Calculadora de Lucro Profissional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-color: #0a0a0c;
+            --card-bg: #141418;
+            --input-bg: #1c1c21;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent-blue: #00d2ff;
+            --accent-green: #00ff88;
+            --accent-red: #ff4d4d;
+            --border-radius: 12px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem 1rem;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--input-bg);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #2a2a32;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+            animation: fadeInDown 0.8s ease;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .input-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .input-group label i {
+            color: var(--accent-blue);
+            font-size: 0.8rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-wrapper span {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        input {
+            width: 100%;
+            background: var(--input-bg);
+            border: 1.5px solid transparent;
+            border-radius: 8px;
+            padding: 12px 12px 12px 35px;
+            color: var(--text-main);
+            font-size: 1rem;
+            transition: var(--transition);
+            outline: none;
+        }
+
+        input#product, input#sales {
+            padding-left: 12px;
+        }
+
+        input:focus {
+            border-color: var(--accent-blue);
+            box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
+            background: #23232a;
+        }
+
+        input::placeholder {
+            color: #4b5563;
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        .actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 14px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            transition: var(--transition);
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00d2ff, #0099ff);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid #334155;
+            color: var(--text-muted);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-main);
+            border-color: var(--text-muted);
+        }
+
+        .results-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .result-card {
+            background: #1a1a20;
+            border-radius: var(--border-radius);
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent-blue);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .result-card:hover {
+            transform: translateY(-5px);
+            background: #202028;
+        }
+
+        .result-card .label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .result-card .label i {
+            font-size: 1.2rem;
+            color: var(--accent-blue);
+        }
+
+        .result-card .value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-top: 0.5rem;
+        }
+
+        .positive {
+            color: var(--accent-green);
+        }
+
+        .negative {
+            color: var(--accent-red);
+        }
+
+        .neutral {
+            color: var(--text-main);
+        }
+
+        footer {
+            margin-top: 3rem;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .results-container {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+
+            .card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Ads-Analyser</h1>
+        <p>Calculadora de Performance de Anúncios</p>
+    </header>
+
+    <div class="main-container">
+        <div class="card">
+            <div class="input-grid">
+                <div class="input-group" style="grid-column: span 2;">
+                    <label for="product"><i class="fas fa-box"></i> Produto (Opcional)</label>
+                    <input type="text" id="product" placeholder="Ex: Curso de Marketing Digital">
+                </div>
+
+                <div class="input-group">
+                    <label for="cpc"><i class="fas fa-mouse-pointer"></i> CPC Médio</label>
+                    <div class="input-wrapper">
+                        <span>R$</span>
+                        <input type="number" id="cpc" step="0.01" placeholder="0,00">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="commission_usd"><i class="fas fa-dollar-sign"></i> Comissão</label>
+                    <div class="input-wrapper">
+                        <span>US$</span>
+                        <input type="number" id="commission_usd" step="0.01" placeholder="0,00">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="dollar_rate"><i class="fas fa-chart-line"></i> Cotação USD</label>
+                    <div class="input-wrapper">
+                        <span>R$</span>
+                        <input type="number" id="dollar_rate" step="0.01" placeholder="5,00">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="clicks"><i class="fas fa-users"></i> Quantidade de Cliques</label>
+                    <div class="input-wrapper">
+                        <span><i class="fas fa-hand-pointer"></i></span>
+                        <input type="number" id="clicks" placeholder="Ex: 100">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label for="sales"><i class="fas fa-shopping-cart"></i> Quantidade de Vendas</label>
+                    <input type="number" id="sales" value="1" min="1" placeholder="1">
+                </div>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" id="calculateBtn">
+                    <i class="fas fa-calculator"></i> Calcular Resultados
+                </button>
+                <button class="btn btn-secondary" id="clearBtn">
+                    <i class="fas fa-trash-alt"></i> Limpar
+                </button>
+            </div>
+        </div>
+
+        <div class="results-container">
+            <div class="result-card">
+                <div class="label">
+                    <i class="fas fa-coins"></i>
+                    Comissão em Real
+                </div>
+                <div class="value neutral" id="res_comm_brl">R$ 0,00</div>
+            </div>
+
+            <div class="result-card">
+                <div class="label">
+                    <i class="fas fa-money-bill-wave"></i>
+                    Gasto com Anúncios
+                </div>
+                <div class="value neutral" id="res_spend">R$ 0,00</div>
+            </div>
+
+            <div class="result-card">
+                <div class="label">
+                    <i class="fas fa-store"></i>
+                    Receita Total
+                </div>
+                <div class="value neutral" id="res_revenue">R$ 0,00</div>
+            </div>
+
+            <div class="result-card">
+                <div class="label">
+                    <i class="fas fa-chart-line"></i>
+                    Lucro
+                </div>
+                <div class="value neutral" id="res_profit">R$ 0,00</div>
+            </div>
+
+            <div class="result-card" style="grid-column: span 2;">
+                <div class="label">
+                    <i class="fas fa-bullseye"></i>
+                    ROI (%)
+                </div>
+                <div class="value neutral" id="res_roi">N/A</div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        &copy; 2026 Ads-Analyser - Ferramenta Profissional para Afiliados e Gestores
+    </footer>
+
+    <script>
+        const inputs = [
+            'product', 'cpc', 'commission_usd', 'dollar_rate', 
+            'clicks', 'sales'
+        ].reduce((acc, id) => {
+            acc[id] = document.getElementById(id);
+            return acc;
+        }, {});
+
+        const calcBtn = document.getElementById('calculateBtn');
+        const clearBtn = document.getElementById('clearBtn');
+
+        const formatCurrency = (value) => {
+            return new Intl.NumberFormat('pt-BR', {
+                style: 'currency',
+                currency: 'BRL'
+            }).format(value);
+        };
+
+        const formatPercent = (value) => {
+            return value.toFixed(2).replace('.', ',') + '%';
+        };
+
+        const calculate = () => {
+            const cpc = parseFloat(inputs.cpc.value) || 0;
+            const commUsd = parseFloat(inputs.commission_usd.value) || 0;
+            const dollarRate = parseFloat(inputs.dollar_rate.value) || 0;
+            const clicks = parseInt(inputs.clicks.value) || 0;
+            const sales = parseInt(inputs.sales.value) || 1;
+
+            const commBrl = commUsd * dollarRate;
+            const spend = cpc * clicks;
+            const revenue = commBrl * sales;
+            const profit = revenue - spend;
+
+            let roiDisplay = 'N/A';
+            let roiClass = 'neutral';
+
+            if (spend > 0) {
+                const roi = (profit / spend) * 100;
+                roiDisplay = formatPercent(roi);
+                if (roi > 0) roiClass = 'positive';
+                else if (roi < 0) roiClass = 'negative';
+            }
+
+            document.getElementById('res_comm_brl').innerText = formatCurrency(commBrl);
+            document.getElementById('res_spend').innerText = formatCurrency(spend);
+            document.getElementById('res_revenue').innerText = formatCurrency(revenue);
+            
+            const profitEl = document.getElementById('res_profit');
+            profitEl.innerText = formatCurrency(profit);
+            profitEl.classList.remove('positive', 'negative', 'neutral');
+            if (profit > 0) profitEl.classList.add('positive');
+            else if (profit < 0) profitEl.classList.add('negative');
+            else profitEl.classList.add('neutral');
+
+            const roiEl = document.getElementById('res_roi');
+            roiEl.innerText = roiDisplay;
+            roiEl.classList.remove('positive', 'negative', 'neutral');
+            roiEl.classList.add(roiClass);
+        };
+
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+
+        calcBtn.addEventListener('click', calculate);
+
+        clearBtn.addEventListener('click', () => {
+            inputs.product.value = '';
+            inputs.cpc.value = '';
+            inputs.commission_usd.value = '';
+            inputs.dollar_rate.value = '';
+            inputs.clicks.value = '';
+            inputs.sales.value = '1';
+            calculate();
+        });
+
+        calculate();
+    </script>
+</body>
+</html>

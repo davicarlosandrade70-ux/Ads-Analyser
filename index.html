@@ -3,119 +3,115 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ads-Analyser | Calculadora de Lucro Profissional</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Ads-Analyser</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --bg-color: #0a0a0c;
-            --card-bg: #141418;
-            --input-bg: #1c1c21;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent-blue: #00d2ff;
-            --accent-green: #00ff88;
-            --accent-red: #ff4d4d;
-            --border-radius: 12px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
+        }
+
+        :root {
+            --bg: #050507;
+            --card: #0f0f14;
+            --input: #1a1a22;
+            --text: #e5e7eb;
+            --muted: #6b7280;
+            --blue: #0ea5e9;
+            --green: #22c55e;
+            --red: #ef4444;
+            --purple: #a855f7;
+            --radius: 12px;
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background: var(--bg);
+            color: var(--text);
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem 1rem;
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--input-bg);
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #2a2a32;
+            padding: 1rem;
         }
 
         header {
+            max-width: 900px;
+            margin: 0 auto 1rem;
+            padding: 1rem;
             text-align: center;
-            margin-bottom: 2.5rem;
-            animation: fadeInDown 0.8s ease;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 1.75rem;
             font-weight: 800;
-            letter-spacing: -1px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
+            background: linear-gradient(135deg, var(--blue), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.25rem;
         }
 
         header p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.75rem;
+            color: var(--muted);
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 0.15em;
         }
 
-        .main-container {
-            width: 100%;
-            max-width: 800px;
+        /* Desktop Layout */
+        .desktop-container {
+            max-width: 900px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr;
-            gap: 2rem;
-            animation: fadeInUp 0.8s ease;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
         }
 
         .card {
-            background: var(--card-bg);
-            border-radius: var(--border-radius);
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            border: 1px solid rgba(255,255,255,0.08);
         }
 
+        .section-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .section-title i {
+            color: var(--blue);
+        }
+
+        /* Input Section */
         .input-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem;
         }
 
         .input-group {
             display: flex;
             flex-direction: column;
-            gap: 0.5rem;
+            gap: 0.35rem;
+        }
+
+        .input-group.full {
+            grid-column: 1 / -1;
         }
 
         .input-group label {
-            font-size: 0.85rem;
-            font-weight: 500;
-            color: var(--text-muted);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .input-group label i {
-            color: var(--accent-blue);
-            font-size: 0.8rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
         }
 
         .input-wrapper {
@@ -124,364 +120,841 @@
 
         .input-wrapper span {
             position: absolute;
-            left: 12px;
+            left: 0.85rem;
             top: 50%;
             transform: translateY(-50%);
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            pointer-events: none;
+            color: var(--muted);
+            font-size: 0.85rem;
+            font-weight: 600;
         }
 
         input {
             width: 100%;
-            background: var(--input-bg);
-            border: 1.5px solid transparent;
-            border-radius: 8px;
-            padding: 12px 12px 12px 35px;
-            color: var(--text-main);
-            font-size: 1rem;
-            transition: var(--transition);
+            background: var(--input);
+            border: 1px solid transparent;
+            border-radius: 10px;
+            padding: 0.75rem 0.85rem 0.75rem 2.25rem;
+            color: var(--text);
+            font-size: 0.9rem;
+            font-weight: 600;
             outline: none;
+            transition: all 0.2s ease;
         }
 
         input#product, input#sales {
-            padding-left: 12px;
+            padding-left: 0.85rem;
         }
 
         input:focus {
-            border-color: var(--accent-blue);
-            box-shadow: 0 0 0 4px rgba(0, 210, 255, 0.1);
-            background: #23232a;
+            border-color: var(--blue);
+            box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.15);
         }
 
-        input::placeholder {
-            color: #4b5563;
+        input.error {
+            border-color: var(--red);
         }
 
-        input::-webkit-outer-spin-button,
-        input::-webkit-inner-spin-button {
-            -webkit-appearance: none;
-            margin: 0;
+        .error-message {
+            color: var(--red);
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-top: 0.2rem;
         }
 
         .actions {
             display: flex;
-            gap: 1rem;
+            gap: 0.75rem;
             margin-top: 1rem;
         }
 
         .btn {
             flex: 1;
-            padding: 14px;
-            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            border-radius: 10px;
             border: none;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 0.85rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 0.75rem;
-            transition: var(--transition);
-            font-size: 1rem;
+            gap: 0.5rem;
+            transition: all 0.2s ease;
         }
 
         .btn-primary {
-            background: linear-gradient(90deg, #00d2ff, #0099ff);
+            background: linear-gradient(135deg, var(--blue), #3b82f6);
             color: white;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 210, 255, 0.4);
-        }
-
         .btn-secondary {
-            background: transparent;
-            border: 1px solid #334155;
-            color: var(--text-muted);
+            background: rgba(255,255,255,0.05);
+            color: var(--muted);
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-main);
-            border-color: var(--text-muted);
+        .btn:hover {
+            transform: translateY(-1px);
         }
 
-        .results-container {
+        /* Results */
+        .results-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
         }
 
-        .result-card {
-            background: #1a1a20;
-            border-radius: var(--border-radius);
-            padding: 1.5rem;
-            border-left: 4px solid var(--accent-blue);
-            transition: var(--transition);
+        .result-item {
+            background: rgba(0,0,0,0.2);
+            padding: 0.75rem;
+            border-radius: 10px;
+            border-left: 3px solid var(--blue);
+        }
+
+        .result-item.span-2 {
+            grid-column: 1 / -1;
+        }
+
+        .result-label {
+            font-size: 0.7rem;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
             display: flex;
-            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .result-value {
+            font-size: 1.2rem;
+            font-weight: 800;
+        }
+
+        .positive { color: var(--green); }
+        .negative { color: var(--red); }
+        .neutral { color: var(--text); }
+
+        /* Comparison Section - Desktop */
+        .comparison-card {
+            background: rgba(0,0,0,0.2);
+            padding: 0.85rem;
+            border-radius: 10px;
+            margin-bottom: 0.6rem;
+            border: 1px solid rgba(168, 85, 247, 0.25);
+        }
+
+        .comparison-card:last-child {
+            margin-bottom: 0;
+        }
+
+        .comparison-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .comparison-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--purple);
+        }
+
+        .remove-btn {
+            background: rgba(239, 68, 68, 0.1);
+            border: none;
+            color: var(--red);
+            width: 1.75rem;
+            height: 1.75rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .comparison-metrics {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             gap: 0.5rem;
         }
 
-        .result-card:hover {
-            transform: translateY(-5px);
-            background: #202028;
+        .comparison-metric {
+            text-align: center;
         }
 
-        .result-card .label {
+        .comparison-metric-label {
+            font-size: 0.65rem;
+            color: var(--muted);
+            text-transform: uppercase;
+        }
+
+        .comparison-metric-value {
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 1.5rem;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border: 1px dashed rgba(255,255,255,0.1);
+            border-radius: 10px;
+        }
+
+        .empty-state i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            opacity: 0.3;
+        }
+
+        /* Mobile Layout with Tabs */
+        .mobile-tabs {
+            display: none;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            padding-bottom: 0.25rem;
+        }
+
+        .tab-btn {
+            flex: 1;
+            min-width: fit-content;
+            padding: 0.6rem 0.85rem;
+            background: var(--card);
+            border: 1px solid rgba(255,255,255,0.08);
+            color: var(--muted);
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
+            gap: 0.4rem;
+            white-space: nowrap;
         }
 
-        .result-card .label i {
-            font-size: 1.2rem;
-            color: var(--accent-blue);
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--blue), #3b82f6);
+            color: white;
+            border-color: transparent;
         }
 
-        .result-card .value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin-top: 0.5rem;
+        .tab-content {
+            display: none;
         }
 
-        .positive {
-            color: var(--accent-green);
+        .tab-content.active {
+            display: block;
         }
 
-        .negative {
-            color: var(--accent-red);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .desktop-container {
+                display: none;
+            }
+            .mobile-tabs {
+                display: block;
+            }
+            .results-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            .comparison-metrics {
+                grid-template-columns: 1fr 1fr;
+            }
         }
 
-        .neutral {
-            color: var(--text-main);
+        @media (min-width: 769px) {
+            .desktop-container {
+                display: grid;
+            }
+            .mobile-tabs {
+                display: none;
+            }
         }
 
         footer {
-            margin-top: 3rem;
-            color: var(--text-muted);
-            font-size: 0.8rem;
+            max-width: 900px;
+            margin: 1rem auto 0;
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.75rem;
             opacity: 0.6;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
         }
 
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .modal-overlay.active {
+            display: flex;
         }
 
-        @media (max-width: 768px) {
-            .results-container {
-                grid-template-columns: 1fr;
-            }
-            
-            header h1 {
-                font-size: 2rem;
-            }
+        .modal {
+            background: var(--card);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: slideUp 0.3s ease;
+        }
 
-            .card {
-                padding: 1.5rem;
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .modal-header i {
+            font-size: 1.5rem;
+            color: var(--red);
+        }
+
+        .modal-header h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+
+        .modal-body p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .modal-actions .btn {
+            flex: 1;
+        }
+
+        .btn-danger {
+            background: rgba(239,68,68,0.1);
+            color: var(--red);
+            border: 1px solid rgba(239,68,68,0.3);
+        }
+
+        .btn-danger:hover {
+            background: rgba(239,68,68,0.2);
         }
     </style>
 </head>
 <body>
-
     <header>
-        <h1>Ads-Analyser</h1>
-        <p>Calculadora de Performance de Anúncios</p>
+        <h1><i class="fas fa-chart-line"></i> Ads-Analyser</h1>
+        <p>Calculadora de Lucro</p>
     </header>
 
-    <div class="main-container">
+    <!-- Desktop Layout -->
+    <div class="desktop-container">
+        <!-- Coluna 1: Calculadora -->
         <div class="card">
+            <div class="section-title"><i class="fas fa-calculator"></i> Calcular</div>
             <div class="input-grid">
-                <div class="input-group" style="grid-column: span 2;">
-                    <label for="product"><i class="fas fa-box"></i> Produto (Opcional)</label>
-                    <input type="text" id="product" placeholder="Ex: Curso de Marketing Digital">
+                <div class="input-group full">
+                    <label for="product-desktop">Produto</label>
+                    <input type="text" id="product-desktop" placeholder="Nome do produto (opcional)">
                 </div>
-
                 <div class="input-group">
-                    <label for="cpc"><i class="fas fa-mouse-pointer"></i> CPC Médio</label>
+                    <label for="cpc-desktop">CPC</label>
                     <div class="input-wrapper">
                         <span>R$</span>
-                        <input type="number" id="cpc" step="0.01" placeholder="0,00">
+                        <input type="number" id="cpc-desktop" step="0.01" placeholder="0.00">
                     </div>
+                    <span class="error-message" id="cpc-desktop-error"></span>
                 </div>
-
                 <div class="input-group">
-                    <label for="commission_usd"><i class="fas fa-dollar-sign"></i> Comissão</label>
+                    <label for="commission-desktop">Comissão</label>
                     <div class="input-wrapper">
                         <span>US$</span>
-                        <input type="number" id="commission_usd" step="0.01" placeholder="0,00">
+                        <input type="number" id="commission-desktop" step="0.01" placeholder="0.00">
                     </div>
+                    <span class="error-message" id="commission-desktop-error"></span>
                 </div>
-
                 <div class="input-group">
-                    <label for="dollar_rate"><i class="fas fa-chart-line"></i> Cotação USD</label>
+                    <label for="dollar-desktop">Cotação USD</label>
                     <div class="input-wrapper">
                         <span>R$</span>
-                        <input type="number" id="dollar_rate" step="0.01" placeholder="5,00">
+                        <input type="number" id="dollar-desktop" step="0.01" placeholder="5.00">
                     </div>
+                    <span class="error-message" id="dollar-desktop-error"></span>
                 </div>
-
                 <div class="input-group">
-                    <label for="clicks"><i class="fas fa-users"></i> Quantidade de Cliques</label>
+                    <label for="clicks-desktop">Cliques</label>
                     <div class="input-wrapper">
-                        <span><i class="fas fa-hand-pointer"></i></span>
-                        <input type="number" id="clicks" placeholder="Ex: 100">
+                        <span><i class="fas fa-mouse-pointer"></i></span>
+                        <input type="number" id="clicks-desktop" placeholder="0">
                     </div>
+                    <span class="error-message" id="clicks-desktop-error"></span>
                 </div>
-
                 <div class="input-group">
-                    <label for="sales"><i class="fas fa-shopping-cart"></i> Quantidade de Vendas</label>
-                    <input type="number" id="sales" value="1" min="1" placeholder="1">
+                    <label for="sales-desktop">Vendas</label>
+                    <input type="number" id="sales-desktop" value="1" min="1" placeholder="1">
+                    <span class="error-message" id="sales-desktop-error"></span>
                 </div>
             </div>
-
             <div class="actions">
-                <button class="btn btn-primary" id="calculateBtn">
-                    <i class="fas fa-calculator"></i> Calcular Resultados
-                </button>
-                <button class="btn btn-secondary" id="clearBtn">
-                    <i class="fas fa-trash-alt"></i> Limpar
-                </button>
+                <button class="btn btn-primary" id="save-desktop"><i class="fas fa-save"></i> Salvar</button>
+                <button class="btn btn-secondary" id="clear-desktop"><i class="fas fa-eraser"></i> Limpar</button>
             </div>
         </div>
 
-        <div class="results-container">
-            <div class="result-card">
-                <div class="label">
-                    <i class="fas fa-coins"></i>
-                    Comissão em Real
+        <!-- Coluna 2: Resultados + Comparação -->
+        <div>
+            <!-- Resultados -->
+            <div class="card" style="margin-bottom: 1rem;">
+                <div class="section-title"><i class="fas fa-chart-pie"></i> Resultados</div>
+                <div class="results-grid" id="results-desktop">
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-coins"></i> Comissão</div>
+                        <div class="result-value neutral" id="res-comm-desktop">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-money-bill-wave"></i> Gasto</div>
+                        <div class="result-value neutral" id="res-spend-desktop">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-store"></i> Receita</div>
+                        <div class="result-value neutral" id="res-revenue-desktop">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-chart-line"></i> Lucro</div>
+                        <div class="result-value neutral" id="res-profit-desktop">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-tags"></i> CPA</div>
+                        <div class="result-value neutral" id="res-cpa-desktop">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-percent"></i> Conversão</div>
+                        <div class="result-value neutral" id="res-conv-desktop">0.00%</div>
+                    </div>
+                    <div class="result-item span-2" id="res-roi-card-desktop">
+                        <div class="result-label"><i class="fas fa-bullseye"></i> ROI</div>
+                        <div class="result-value neutral" id="res-roi-desktop">N/A</div>
+                    </div>
                 </div>
-                <div class="value neutral" id="res_comm_brl">R$ 0,00</div>
             </div>
 
-            <div class="result-card">
-                <div class="label">
-                    <i class="fas fa-money-bill-wave"></i>
-                    Gasto com Anúncios
+            <!-- Comparação -->
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div class="section-title" style="margin-bottom: 0;"><i class="fas fa-balance-scale"></i> Comparar</div>
+                    <button class="btn btn-secondary" id="clear-all-desktop" style="padding: 0.4rem 0.75rem; font-size: 0.75rem;"><i class="fas fa-trash-alt"></i> Limpar Tudo</button>
                 </div>
-                <div class="value neutral" id="res_spend">R$ 0,00</div>
-            </div>
-
-            <div class="result-card">
-                <div class="label">
-                    <i class="fas fa-store"></i>
-                    Receita Total
+                <div id="comparison-desktop">
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Salve produtos para comparar</p>
+                    </div>
                 </div>
-                <div class="value neutral" id="res_revenue">R$ 0,00</div>
-            </div>
-
-            <div class="result-card">
-                <div class="label">
-                    <i class="fas fa-chart-line"></i>
-                    Lucro
-                </div>
-                <div class="value neutral" id="res_profit">R$ 0,00</div>
-            </div>
-
-            <div class="result-card" style="grid-column: span 2;">
-                <div class="label">
-                    <i class="fas fa-bullseye"></i>
-                    ROI (%)
-                </div>
-                <div class="value neutral" id="res_roi">N/A</div>
             </div>
         </div>
     </div>
 
-    <footer>
-        &copy; 2026 Ads-Analyser - Ferramenta Profissional para Afiliados e Gestores
+    <!-- Mobile Layout with Tabs -->
+    <div class="mobile-tabs">
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-tab="calc"><i class="fas fa-calculator"></i> Calcular</button>
+            <button class="tab-btn" data-tab="results"><i class="fas fa-chart-pie"></i> Resultados</button>
+            <button class="tab-btn" data-tab="compare"><i class="fas fa-balance-scale"></i> Comparar</button>
+        </div>
+
+        <!-- Tab 1: Calcular -->
+        <div class="tab-content active" id="tab-calc">
+            <div class="card">
+                <div class="input-grid">
+                    <div class="input-group full">
+                        <label for="product-mobile">Produto</label>
+                        <input type="text" id="product-mobile" placeholder="Nome do produto (opcional)">
+                    </div>
+                    <div class="input-group">
+                        <label for="cpc-mobile">CPC</label>
+                        <div class="input-wrapper">
+                            <span>R$</span>
+                            <input type="number" id="cpc-mobile" step="0.01" placeholder="0.00">
+                        </div>
+                        <span class="error-message" id="cpc-mobile-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="commission-mobile">Comissão</label>
+                        <div class="input-wrapper">
+                            <span>US$</span>
+                            <input type="number" id="commission-mobile" step="0.01" placeholder="0.00">
+                        </div>
+                        <span class="error-message" id="commission-mobile-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="dollar-mobile">Cotação USD</label>
+                        <div class="input-wrapper">
+                            <span>R$</span>
+                            <input type="number" id="dollar-mobile" step="0.01" placeholder="5.00">
+                        </div>
+                        <span class="error-message" id="dollar-mobile-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="clicks-mobile">Cliques</label>
+                        <div class="input-wrapper">
+                            <span><i class="fas fa-mouse-pointer"></i></span>
+                            <input type="number" id="clicks-mobile" placeholder="0">
+                        </div>
+                        <span class="error-message" id="clicks-mobile-error"></span>
+                    </div>
+                    <div class="input-group">
+                        <label for="sales-mobile">Vendas</label>
+                        <input type="number" id="sales-mobile" value="1" min="1" placeholder="1">
+                        <span class="error-message" id="sales-mobile-error"></span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button class="btn btn-primary" id="save-mobile"><i class="fas fa-save"></i> Salvar</button>
+                    <button class="btn btn-secondary" id="clear-mobile"><i class="fas fa-eraser"></i> Limpar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 2: Resultados -->
+        <div class="tab-content" id="tab-results">
+            <div class="card">
+                <div class="results-grid" id="results-mobile">
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-coins"></i> Comissão</div>
+                        <div class="result-value neutral" id="res-comm-mobile">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-money-bill-wave"></i> Gasto</div>
+                        <div class="result-value neutral" id="res-spend-mobile">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-store"></i> Receita</div>
+                        <div class="result-value neutral" id="res-revenue-mobile">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-chart-line"></i> Lucro</div>
+                        <div class="result-value neutral" id="res-profit-mobile">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-tags"></i> CPA</div>
+                        <div class="result-value neutral" id="res-cpa-mobile">R$ 0.00</div>
+                    </div>
+                    <div class="result-item">
+                        <div class="result-label"><i class="fas fa-percent"></i> Conversão</div>
+                        <div class="result-value neutral" id="res-conv-mobile">0.00%</div>
+                    </div>
+                    <div class="result-item span-2" id="res-roi-card-mobile">
+                        <div class="result-label"><i class="fas fa-bullseye"></i> ROI</div>
+                        <div class="result-value neutral" id="res-roi-mobile">N/A</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tab 3: Comparar -->
+        <div class="tab-content" id="tab-compare">
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                    <div class="section-title" style="margin-bottom: 0;"><i class="fas fa-balance-scale"></i> Produtos Salvos</div>
+                    <button class="btn btn-secondary" id="clear-all-mobile" style="padding: 0.4rem 0.75rem; font-size: 0.75rem;"><i class="fas fa-trash-alt"></i> Limpar</button>
+                </div>
+                <div id="comparison-mobile">
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Salve produtos para comparar</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer">
+        © Ads-Analyser
     </footer>
 
+    <!-- Modal -->
+    <div class="modal-overlay" id="clearModal">
+        <div class="modal">
+            <div class="modal-header">
+                <i class="fas fa-exclamation-triangle"></i>
+                <h3>Limpar tudo?</h3>
+            </div>
+            <div class="modal-body">
+                <p>Tem certeza que deseja remover todos os produtos salvos? Essa ação não pode ser desfeita.</p>
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-secondary" id="cancelBtn"><i class="fas fa-times"></i> Cancelar</button>
+                <button class="btn btn-danger" id="confirmClearBtn"><i class="fas fa-trash-alt"></i> Limpar</button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        const inputs = [
-            'product', 'cpc', 'commission_usd', 'dollar_rate', 
-            'clicks', 'sales'
-        ].reduce((acc, id) => {
-            acc[id] = document.getElementById(id);
-            return acc;
-        }, {});
+        // Footer year
+        document.getElementById('footer').innerHTML = `© ${new Date().getFullYear()} Ads-Analyser`;
 
-        const calcBtn = document.getElementById('calculateBtn');
-        const clearBtn = document.getElementById('clearBtn');
+        // Products storage
+        let products = JSON.parse(localStorage.getItem('adsAnalyserProducts')) || [];
 
-        const formatCurrency = (value) => {
-            return new Intl.NumberFormat('pt-BR', {
-                style: 'currency',
-                currency: 'BRL'
-            }).format(value);
+        // Modal elements
+        const modal = document.getElementById('clearModal');
+        const cancelBtn = document.getElementById('cancelBtn');
+        const confirmClearBtn = document.getElementById('confirmClearBtn');
+
+        // Helper functions
+        const formatCurrency = (val) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(val || 0);
+        const formatPercent = (val) => (val || 0).toFixed(2).replace('.', ',') + '%';
+
+        const openModal = () => {
+            modal.classList.add('active');
         };
 
-        const formatPercent = (value) => {
-            return value.toFixed(2).replace('.', ',') + '%';
+        const closeModal = () => {
+            modal.classList.remove('active');
         };
 
-        const calculate = () => {
-            const cpc = parseFloat(inputs.cpc.value) || 0;
-            const commUsd = parseFloat(inputs.commission_usd.value) || 0;
-            const dollarRate = parseFloat(inputs.dollar_rate.value) || 0;
-            const clicks = parseInt(inputs.clicks.value) || 0;
-            const sales = parseInt(inputs.sales.value) || 1;
+        const clearAllProducts = () => {
+            products = [];
+            localStorage.setItem('adsAnalyserProducts', JSON.stringify(products));
+            renderComparison('desktop');
+            renderComparison('mobile');
+            closeModal();
+        };
 
-            const commBrl = commUsd * dollarRate;
+        // Modal events
+        cancelBtn.addEventListener('click', closeModal);
+        confirmClearBtn.addEventListener('click', clearAllProducts);
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        const calculateMetrics = (data) => {
+            const cpc = parseFloat(data.cpc) || 0;
+            const commUsd = parseFloat(data.commission) || 0;
+            const dollar = parseFloat(data.dollar) || 0;
+            const clicks = parseInt(data.clicks) || 0;
+            const sales = parseInt(data.sales) || 1;
+            const commBrl = commUsd * dollar;
             const spend = cpc * clicks;
             const revenue = commBrl * sales;
             const profit = revenue - spend;
-
-            let roiDisplay = 'N/A';
+            let roi = 'N/A';
             let roiClass = 'neutral';
-
             if (spend > 0) {
-                const roi = (profit / spend) * 100;
-                roiDisplay = formatPercent(roi);
-                if (roi > 0) roiClass = 'positive';
-                else if (roi < 0) roiClass = 'negative';
+                const roiVal = (profit / spend) * 100;
+                roi = formatPercent(roiVal);
+                roiClass = roiVal > 0 ? 'positive' : roiVal < 0 ? 'negative' : 'neutral';
             }
-
-            document.getElementById('res_comm_brl').innerText = formatCurrency(commBrl);
-            document.getElementById('res_spend').innerText = formatCurrency(spend);
-            document.getElementById('res_revenue').innerText = formatCurrency(revenue);
-            
-            const profitEl = document.getElementById('res_profit');
-            profitEl.innerText = formatCurrency(profit);
-            profitEl.classList.remove('positive', 'negative', 'neutral');
-            if (profit > 0) profitEl.classList.add('positive');
-            else if (profit < 0) profitEl.classList.add('negative');
-            else profitEl.classList.add('neutral');
-
-            const roiEl = document.getElementById('res_roi');
-            roiEl.innerText = roiDisplay;
-            roiEl.classList.remove('positive', 'negative', 'neutral');
-            roiEl.classList.add(roiClass);
+            const cpa = sales > 0 ? spend / sales : 0;
+            const conv = clicks > 0 ? (sales / clicks) * 100 : 0;
+            return {
+                commBrl, spend, revenue, profit, roi, cpa, conv,
+                profitClass: profit > 0 ? 'positive' : profit < 0 ? 'negative' : 'neutral',
+                roiClass
+            };
         };
 
-        Object.values(inputs).forEach(input => {
-            input.addEventListener('input', calculate);
-        });
+        // Render results for specific platform
+        const renderResults = (platform, data) => {
+            const m = calculateMetrics(data);
+            document.getElementById(`res-comm-${platform}`).textContent = formatCurrency(m.commBrl);
+            document.getElementById(`res-spend-${platform}`).textContent = formatCurrency(m.spend);
+            document.getElementById(`res-revenue-${platform}`).textContent = formatCurrency(m.revenue);
+            
+            const profitEl = document.getElementById(`res-profit-${platform}`);
+            profitEl.textContent = formatCurrency(m.profit);
+            profitEl.className = `result-value ${m.profitClass}`;
+            
+            document.getElementById(`res-cpa-${platform}`).textContent = formatCurrency(m.cpa);
+            document.getElementById(`res-conv-${platform}`).textContent = formatPercent(m.conv);
+            
+            const roiEl = document.getElementById(`res-roi-${platform}`);
+            roiEl.textContent = m.roi;
+            roiEl.className = `result-value ${m.roiClass}`;
+        };
 
-        calcBtn.addEventListener('click', calculate);
+        // Render comparison cards
+        const renderComparison = (platform) => {
+            const container = document.getElementById(`comparison-${platform}`);
+            if (products.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-box-open"></i>
+                        <p>Salve produtos para comparar</p>
+                    </div>
+                `;
+                return;
+            }
+            container.innerHTML = products.map((p, idx) => {
+                const m = calculateMetrics(p);
+                return `
+                    <div class="comparison-card">
+                        <div class="comparison-header">
+                            <div class="comparison-name"><i class="fas fa-box"></i> ${p.name}</div>
+                            <button class="remove-btn" onclick="removeProduct(${idx})"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="comparison-metrics">
+                            <div class="comparison-metric">
+                                <div class="comparison-metric-label">Receita</div>
+                                <div class="comparison-metric-value">${formatCurrency(m.revenue)}</div>
+                            </div>
+                            <div class="comparison-metric">
+                                <div class="comparison-metric-label">Lucro</div>
+                                <div class="comparison-metric-value ${m.profitClass}">${formatCurrency(m.profit)}</div>
+                            </div>
+                            <div class="comparison-metric">
+                                <div class="comparison-metric-label">ROI</div>
+                                <div class="comparison-metric-value ${m.roiClass}">${m.roi}</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        };
 
-        clearBtn.addEventListener('click', () => {
-            inputs.product.value = '';
-            inputs.cpc.value = '';
-            inputs.commission_usd.value = '';
-            inputs.dollar_rate.value = '';
-            inputs.clicks.value = '';
-            inputs.sales.value = '1';
-            calculate();
-        });
+        // Remove product
+        const removeProduct = (idx) => {
+            products.splice(idx, 1);
+            localStorage.setItem('adsAnalyserProducts', JSON.stringify(products));
+            renderComparison('desktop');
+            renderComparison('mobile');
+        };
 
-        calculate();
+        // Setup platform
+        const setupPlatform = (platform) => {
+            const inputs = {
+                product: document.getElementById(`product-${platform}`),
+                cpc: document.getElementById(`cpc-${platform}`),
+                commission: document.getElementById(`commission-${platform}`),
+                dollar: document.getElementById(`dollar-${platform}`),
+                clicks: document.getElementById(`clicks-${platform}`),
+                sales: document.getElementById(`sales-${platform}`)
+            };
+
+            const updateResults = () => {
+                renderResults(platform, {
+                    cpc: inputs.cpc.value,
+                    commission: inputs.commission.value,
+                    dollar: inputs.dollar.value,
+                    clicks: inputs.clicks.value,
+                    sales: inputs.sales.value
+                });
+            };
+
+            Object.values(inputs).forEach(input => input.addEventListener('input', updateResults));
+
+            // Save button
+            document.getElementById(`save-${platform}`).addEventListener('click', () => {
+                const name = inputs.product.value.trim() || `Produto ${products.length + 1}`;
+                products.push({
+                    name,
+                    cpc: inputs.cpc.value,
+                    commission: inputs.commission.value,
+                    dollar: inputs.dollar.value,
+                    clicks: inputs.clicks.value,
+                    sales: inputs.sales.value
+                });
+                localStorage.setItem('adsAnalyserProducts', JSON.stringify(products));
+                renderComparison('desktop');
+                renderComparison('mobile');
+            });
+
+            // Clear button
+            document.getElementById(`clear-${platform}`).addEventListener('click', () => {
+                inputs.product.value = '';
+                inputs.cpc.value = '';
+                inputs.commission.value = '';
+                inputs.dollar.value = '';
+                inputs.clicks.value = '';
+                inputs.sales.value = '1';
+                updateResults();
+            });
+
+            // Clear all button
+            const clearAllBtn = document.getElementById(`clear-all-${platform}`);
+            if (clearAllBtn) {
+                clearAllBtn.addEventListener('click', openModal);
+            }
+
+            updateResults();
+        };
+
+        // Setup mobile tabs
+        const setupTabs = () => {
+            const tabBtns = document.querySelectorAll('.tab-btn');
+            const tabContents = document.querySelectorAll('.tab-content');
+            tabBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    tabBtns.forEach(b => b.classList.remove('active'));
+                    tabContents.forEach(c => c.classList.remove('active'));
+                    btn.classList.add('active');
+                    document.getElementById(`tab-${btn.dataset.tab}`).classList.add('active');
+                });
+            });
+        };
+
+        // Initialize
+        setupPlatform('desktop');
+        setupPlatform('mobile');
+        setupTabs();
+        renderComparison('desktop');
+        renderComparison('mobile');
+
+        // Sync inputs between desktop and mobile
+        const syncInputs = (source, target) => {
+            ['product', 'cpc', 'commission', 'dollar', 'clicks', 'sales'].forEach(field => {
+                const sourceEl = document.getElementById(`${field}-${source}`);
+                const targetEl = document.getElementById(`${field}-${target}`);
+                sourceEl.addEventListener('input', () => {
+                    targetEl.value = sourceEl.value;
+                    renderResults(target, {
+                        cpc: document.getElementById(`cpc-${target}`).value,
+                        commission: document.getElementById(`commission-${target}`).value,
+                        dollar: document.getElementById(`dollar-${target}`).value,
+                        clicks: document.getElementById(`clicks-${target}`).value,
+                        sales: document.getElementById(`sales-${target}`).value
+                    });
+                });
+            });
+        };
+        syncInputs('desktop', 'mobile');
+        syncInputs('mobile', 'desktop');
     </script>
 </body>
 </html>
